@@ -1,13 +1,10 @@
 var restify   = require( 'restify' );
 var NodeCache = require( 'node-cache' );
+var config    = require( './config' );
+
+config.validate();
 
 var server    = restify.createServer();
-
-var pageConfig = {
-  pageId:    0,
-  appId:     0,
-  appSecret: ''
-};
 
 function isEmptyObject(obj) {
   return !Object.keys(obj).length;
@@ -32,7 +29,7 @@ server.get(/^\/fb\/(.*)/, function(req, resp, next) {
     if( isEmptyObject(value) || err ){
       // no key in cache, populate
       console.log('cache not found, fetching');
-      fbClient.get('/' + pageConfig.pageId + '/' + apiCall + seperator + 'access_token=306514909486699|19849a550dc9bb5330c5623afbbb1fe0', function(err, req, res, obj) {
+      fbClient.get('/' + config.fb.pageId + '/' + apiCall + seperator + 'access_token=' + config.fb.appId + '|' + config.fb.appSecret, function(err, req, res, obj) {
         console.log( 'fb response received' );
         myCache.set(apiCall, obj);
         resp.send( obj );

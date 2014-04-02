@@ -7,4 +7,24 @@ config.fb = {
   appSecret: ''
 };
 
+config.validate = function () {
+  var errors = [];
+  try {
+    if (config.fb.pageId <= 0) {
+      errors.push('pageId must be a number greater than 0');
+    }
+    if (config.fb.appId <= 0) {
+      errors.push('appId must be a number greater than 0');
+    }
+    if (config.fb.appSecret.length <= 0) {
+      errors.push('appSecret must be a string with a length greater than 0');
+    }
+    if (errors.length > 0 ) {
+      throw new Error('Configuration error... ' + errors.join());
+    }
+  } catch (e) {
+    throw new Error('Configuration error... some required configuration missing. Error: ' + e.message);
+  }
+};
+
 module.exports = config;
