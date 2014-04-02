@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "restify": "~2.6.1",
-    "LiveScript": "~1.2.0"
+    "LiveScript": "~1.2.0",
+    "node-cache": "~0.4.1"
   },
   "devDependencies": {
     "grunt-simple-mocha": "~0.4.0",

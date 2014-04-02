@@ -1,0 +1,10 @@
+var config = {};
+
+//these are the required Facebook Configurations
+config.fb = {
+  pageId:    0,
+  appId:     0,
+  appSecret: ''
+};
+
+module.exports = config;
