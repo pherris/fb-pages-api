@@ -9,7 +9,7 @@ Usage
 ------------------
 ````
 git clone https://github.com/pherris/fb-pages-api/
-cd fb-pages-ui
+cd fb-pages-api
 edit config.js.empty with your credentials and rename to config.js
 node index.js
 ````
