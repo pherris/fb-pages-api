@@ -1,6 +1,6 @@
 var restify   = require( 'restify' );
 var NodeCache = require( 'node-cache' );
-var config    = require( './config' );
+var config    = require( __dirname + '/config' );
 
 config.validate();
 
