@@ -3,6 +3,8 @@ fb-pages-api
 
 Proxy API requests to Facebook that require an 'access token' without requiring the end user to login. This NodeJS app allows you to access public APIs from Facebook to display your Page's feed on your web site without exposing your credentials in client side code or navigating the Facebook token creation process. Facebook responses are cached for several minutes by default.
 
+To see how this data is visualized, download the companion AngularJS app at: https://github.com/pherris/fb-pages-ui
+
 Usage
 ------------------
 ````
