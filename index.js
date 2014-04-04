@@ -9,7 +9,7 @@ var server    = restify.createServer();
 //allow cross origin for dev
 server.use(
   function crossOrigin(req,res,next){
-    res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:9000');
+    res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'X-Requested-With');
     return next();
   }
@@ -54,6 +54,13 @@ server.get(/^\/fb(.*)/, function(req, resp, next) {
       return next();
     }
   });
+});
+
+server.get(/^\/config/, function (req, resp, next) {
+  resp.send({
+    'appId': config.fb.appId
+  });
+  return next();
 });
 
 server.get(/^\/*/, restify.serveStatic({
