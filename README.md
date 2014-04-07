@@ -17,7 +17,7 @@ Cross origin calls are allowed only from localhost:9000 by default. To serve sta
 
 API Calls
 ------------------
-The proxy matches all HTTP requests made to HOST/fb and proxies them to Facebook with your pageId and credentials (from config.js). e.g.
+The proxy matches all HTTP requests made to HOST/fb* and proxies them to Facebook's graph api with your  credentials (from config.js). If the request is to a non-number, the pageId is prepended e.g.
 
 this configuration
 ````
@@ -46,6 +46,16 @@ http://localhost:5000/fb/posts
 Maps to this Facebook API call (https://developers.facebook.com/docs/graph-api/reference/page/feed/):
 ````
 https://graph.facebook.com/123/posts?access_token=456|1A2A3A4A5A
+````
+
+Request: 
+````
+http://localhost:5000/fb/456-789
+````
+
+Maps to this Facebook API call (https://developers.facebook.com/docs/graph-api/reference/{object-id}):
+````
+https://graph.facebook.com/456-789?access_token=456|1A2A3A4A5A
 ````
 
 The mapping is entirely by convention. If you were to make a HTTP request to:

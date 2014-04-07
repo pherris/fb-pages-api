@@ -34,15 +34,23 @@ var fbClient = restify.createJsonClient({
  * captures all /fb* requests and sends them to FB with correct credentials
  **/
 server.get(/^\/fb(.*)/, function(req, resp, next) {
-  var apiCall = req.params[0];
+  var apiCall = req.params[0].substr(1, req.params[0].length); //pull off leading /
 
   myCache.get( apiCall, function( err, value ){
     var seperator = apiCall.indexOf('?') > -1 ? '&' : '?';
     if( isEmptyObject(value[apiCall] ) || err ){
       // no key in cache, populate
       console.log('cache not found, fetching');
-      fbClient.get('/' + config.fb.pageId + apiCall + seperator + 'access_token=' + config.fb.appId + '|' + config.fb.appSecret, function(err, req, res, obj) {
-        console.log( 'fb call executed to: ' + '/' + config.fb.pageId + '/' + apiCall + seperator + 'access_token=' + config.fb.appId + '|' + config.fb.appSecret );
+
+      //if apiCall is numeric&/or hyphens, don't prepend pageId
+      if (!apiCall.match(/^[\d|-]+$/)) {
+        apiCall = config.fb.pageId + '/' + apiCall;
+      }
+
+      var url = '/' + apiCall + seperator + 'access_token=' + config.fb.appId + '|' + config.fb.appSecret;
+
+      fbClient.get(url, function(err, req, res, obj) {
+        console.log( 'fb call executed to: ' + url );
         console.log( 'fb response recevied' );
         myCache.set(apiCall, obj);
         resp.send( obj ? obj : "{ 'error': 'could not access fb' }" );
