@@ -43,7 +43,7 @@ server.get(/^\/fb(.*)/, function(req, resp, next) {
       console.log('cache not found, fetching');
 
       //if apiCall is numeric&/or hyphens, don't prepend pageId
-      if (!apiCall.match(/^[\d|-]+$/)) {
+      if (!apiCall.match(/^[\d|-]+\/?.*$/)) {
         apiCall = config.fb.pageId + '/' + apiCall;
       }
 
