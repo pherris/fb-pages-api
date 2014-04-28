@@ -4,8 +4,6 @@ var config    = require( __dirname + '/config.js' );
 
 config.validate();
 
-console.log(JSON.stringify(config));
-
 var server    = restify.createServer();
 
 //allow cross origin for dev
@@ -24,6 +22,11 @@ function isEmptyObject(obj) {
     return true;
   }
 }
+
+// server.pre(function (request, response, next) {
+//     console.log(request);
+//     next();
+// });
 
 var myCache = new NodeCache({ stdTTL: config.app.cache.ttlMillis, checkperiod: 120 } );
 
@@ -53,7 +56,7 @@ server.get(/^\/fb(.*)/, function(req, resp, next) {
       var url = '/' + apiCall + seperator + 'access_token=' + config.fb.appId + '|' + config.fb.appSecret;
 
       fbClient.get(url, function(err, req, res, obj) {
-        console.log( 'fb response recevied' );
+        //console.log( 'fb response recevied' );
         
         myCache.set(apiCall, obj);
         resp.send( obj ? obj : "{ 'error': 'could not access fb' }" );
@@ -86,7 +89,8 @@ server.get(/^\/config/, function (req, resp, next) {
 });
 
 server.get(/^\/*/, restify.serveStatic({
-  directory: './static'
+  directory: './static',
+  default: 'index.html'
 }));
 
 var port = Number(process.env.PORT || 5000);
