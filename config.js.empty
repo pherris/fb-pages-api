@@ -1,11 +1,39 @@
 var config = {};
 
+//node app configurations
+config.app = {
+  cache: {
+    ttlMillis: 300
+  }
+};
+
 //these are the required Facebook Configurations
 config.fb = {
   pageId:    0,
   appId:     0,
   appSecret: ''
 };
+
+//google analytics configurations
+config.google = {
+  'analytics': {
+    siteId: ''
+  }
+};
+
+//FB link to posts as 'pages'
+config.fb.pages = [{
+  postId: '',
+  pageName: '',
+  displayPreferences: {
+    post: {
+      'likes': false,
+      'comments': false,
+      'updated': false,
+      'image': false
+    }
+  }
+}];
 
 config.validate = function () {
   var errors = [];
